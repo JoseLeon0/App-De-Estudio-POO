@@ -501,85 +501,89 @@ const questions = [
             showQuestion();
         }
 
-        function startFlashcards() {
-            document.getElementById('mainMenu').style.display = 'none';
-            document.getElementById('flashcardContainer').classList.add('active');
-
-            const flashcardData = [
-                { term: 'Paradigma OO', definition: 'Modelo mental o forma de pensar para resolver problemas, basado en objetos que tienen atributos y métodos' },
-                { term: 'Programación OO', definition: 'Aplicación práctica del paradigma usando un lenguaje de programación' },
-                { term: 'Clase', definition: 'Plantilla o modelo que define los atributos y métodos que tendrán los objetos' },
-                { term: 'Objeto', definition: 'Instancia de una clase; representa algo concreto creado a partir de la clase' },
-                { term: 'Atributo', definition: 'Variable que describe una característica del objeto y representa su estado' },
-                { term: 'Método', definition: 'Función dentro de una clase que define el comportamiento del objeto' },
-                { term: 'Encapsulamiento', definition: 'Agrupar datos y métodos en una clase y controlar el acceso para proteger la información' },
-                { term: 'Abstracción', definition: 'Mostrar solo lo esencial de un objeto y ocultar los detalles internos' },
-                { term: 'Herencia', definition: 'Permite que una clase herede atributos y métodos de otra para reutilizar código' },
-                { term: 'Polimorfismo', definition: 'Permite que un mismo método se comporte de manera diferente según el objeto que lo use' }
-            ];
-
-            let currentCard = 0;
-            let isFlipped = false;
-
-            function showFlashcard() {
-                const card = flashcardData[currentCard];
-                const container = document.getElementById('flashcardContainer');
-                
-                container.innerHTML = `
-                    <div class="question-number">Tarjeta ${currentCard + 1} de ${flashcardData.length}</div>
-                    <div class="flashcard" id="flashcard" onclick="flipCard()">
-                        <div class="flashcard-front">
-                            <div class="flashcard-term">${card.term}</div>
-                            <p style="color: #999; margin-top: 20px;">Click para ver la definición</p>
-                        </div>
+        // Variables globales para las flashcards
+        let flashcardData = [
+            { term: 'Paradigma OO', definition: 'Modelo mental o forma de pensar para resolver problemas, basado en objetos que tienen atributos y métodos' },
+            { term: 'Programación OO', definition: 'Aplicación práctica del paradigma usando un lenguaje de programación' },
+            { term: 'Clase', definition: 'Plantilla o modelo que define los atributos y métodos que tendrán los objetos' },
+            { term: 'Objeto', definition: 'Instancia de una clase; representa algo concreto creado a partir de la clase' },
+            { term: 'Atributo', definition: 'Variable que describe una característica del objeto y representa su estado' },
+            { term: 'Método', definition: 'Función dentro de una clase que define el comportamiento del objeto' },
+            { term: 'Encapsulamiento', definition: 'Agrupar datos y métodos en una clase y controlar el acceso para proteger la información' },
+            { term: 'Abstracción', definition: 'Mostrar solo lo esencial de un objeto y ocultar los detalles internos' },
+            { term: 'Herencia', definition: 'Permite que una clase herede atributos y métodos de otra para reutilizar código' },
+            { term: 'Polimorfismo', definition: 'Permite que un mismo método se comporte de manera diferente según el objeto que lo use' }
+        ];
+        
+        let currentCard = 0;
+        let isFlipped = false;
+        
+        function showFlashcard() {
+            const card = flashcardData[currentCard];
+            const container = document.getElementById('flashcardContainer');
+            
+            container.innerHTML = `
+                <div class="question-number">Tarjeta ${currentCard + 1} de ${flashcardData.length}</div>
+                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                    <div class="flashcard-front">
+                        <div class="flashcard-term">${card.term}</div>
+                        <p style="color: #999; margin-top: 20px;">Click para ver la definición</p>
                     </div>
-                    <div class="controls" style="margin-top: 30px;">
-                        <button class="btn btn-secondary" onclick="backToMenu()">🏠 Menú</button>
-                        <button class="btn btn-primary" onclick="prevCard()" ${currentCard === 0 ? 'disabled' : ''}>← Anterior</button>
-                        <button class="btn btn-primary" onclick="nextCard()" ${currentCard === flashcardData.length - 1 ? 'disabled' : ''}>Siguiente →</button>
+                </div>
+                <div class="controls" style="margin-top: 30px;">
+                    <button class="btn btn-secondary" onclick="backToMenu()">🏠 Menú</button>
+                    <button class="btn btn-primary" onclick="prevCard()" ${currentCard === 0 ? 'disabled' : ''}>← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextCard()" ${currentCard === flashcardData.length - 1 ? 'disabled' : ''}>Siguiente →</button>
+                </div>
+            `;
+            isFlipped = false;
+        }
+        
+        function flipCard() {
+            const flashcard = document.getElementById('flashcard');
+            const card = flashcardData[currentCard];
+            
+            if (!isFlipped) {
+                console.log('aaaa')
+                flashcard.innerHTML = `
+                    <div class="flashcard-back">
+                        <div class="flashcard-term" style="color: #28a745;">${card.term}</div>
+                        <p class="flashcard-definition">${card.definition}</p>
+                        <p style="color: #999; margin-top: 20px;">Click para volver</p>
+                    </div>
+                `;
+                isFlipped = true;
+            } else {
+                console.log('eeee')
+                flashcard.innerHTML = `
+                    <div class="flashcard-front">
+                        <div class="flashcard-term">${card.term}</div>
+                        <p style="color: #999; margin-top: 20px;">Click para ver la definición</p>
                     </div>
                 `;
                 isFlipped = false;
             }
-
-            window.flipCard = function() {
-                const flashcard = document.getElementById('flashcard');
-                const card = flashcardData[currentCard];
-                
-                if (!isFlipped) {
-                    flashcard.innerHTML = `
-                        <div class="flashcard-back">
-                            <div class="flashcard-term" style="color: #28a745;">${card.term}</div>
-                            <div class="flashcard-definition">${card.definition}</div>
-                            <p style="color: #999; margin-top: 20px;">Click para volver</p>
-                        </div>
-                    `;
-                    isFlipped = true;
-                } else {
-                    flashcard.innerHTML = `
-                        <div class="flashcard-front">
-                            <div class="flashcard-term">${card.term}</div>
-                            <p style="color: #999; margin-top: 20px;">Click para ver la definición</p>
-                        </div>
-                    `;
-                    isFlipped = false;
-                }
-            };
-
-            window.nextCard = function() {
-                if (currentCard < flashcardData.length - 1) {
-                    currentCard++;
-                    showFlashcard();
-                }
-            };
-
-            window.prevCard = function() {
-                if (currentCard > 0) {
-                    currentCard--;
-                    showFlashcard();
-                }
-            };
-
+        }
+        
+        function nextCard() {
+            if (currentCard < flashcardData.length - 1) {
+                currentCard++;
+                showFlashcard();
+            }
+        }
+        
+        function prevCard() {
+            if (currentCard > 0) {
+                currentCard--;
+                showFlashcard();
+            }
+        }
+        
+        function startFlashcards() {
+            currentCard = 0;
+            isFlipped = false;
+            document.getElementById('mainMenu').style.display = 'none';
+            document.getElementById('flashcardContainer').classList.add('active');
             showFlashcard();
         }
 

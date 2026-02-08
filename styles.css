@@ -311,17 +311,16 @@
 
         .flashcard-front, .flashcard-back {
             backface-visibility: hidden;
-            position: absolute;
             width: 100%;
         }
 
-        .flashcard-back {
+        /* .flashcard-back {
             transform: rotateY(180deg);
-        }
+        } */
 
         .flashcard-term {
             font-size: 1.8em;
-            color: #667eea;
+            color: black;
             font-weight: bold;
             margin-bottom: 20px;
         }
