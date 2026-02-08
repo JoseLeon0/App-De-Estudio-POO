@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Examen POO - App de Estudio</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Examen POO</h1>
+            <p>Aplicación de Estudio Interactiva</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalQuestions">0</div>
+                <div class="stat-label">Preguntas totales</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="correctAnswers">0</div>
+                <div class="stat-label">Correctas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="accuracy">0%</div>
+                <div class="stat-label">Precisión</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="streak">0</div>
+                <div class="stat-label">Racha</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="mainMenu" class="menu">
+                <button class="menu-button" onclick="startQuiz('all')">
+                    🎯 Práctica General<br>
+                    <small>Todas las preguntas</small>
+                </button>
+                <button class="menu-button" onclick="startQuiz('teoricas')">
+                    📖 Respuestas Teóricas<br>
+                    <small>Conceptos básicos</small>
+                </button>
+                <button class="menu-button" onclick="startQuiz('relacion')">
+                    🔍 Relación y Diferencia<br>
+                    <small>Comparaciones</small>
+                </button>
+                <button class="menu-button" onclick="startQuiz('aplicacion')">
+                    ⚙️ Aplicación<br>
+                    <small>Casos prácticos</small>
+                </button>
+                <button class="menu-button" onclick="startFlashcards()">
+                    🎴 Flashcards<br>
+                    <small>Repaso rápido</small>
+                </button>
+                <button class="menu-button" onclick="reviewMistakes()">
+                    ⚠️ Repasar Errores<br>
+                    <small id="mistakeCount">0 pendientes</small>
+                </button>
+            </div>
+
+            <div id="quizContainer" class="quiz-container"></div>
+            <div id="flashcardContainer" class="quiz-container"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
